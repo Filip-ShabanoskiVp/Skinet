@@ -1,0 +1,41 @@
+<div class="d-flex justify-content-center mt-5">
+    <div class="col-3">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="text-center mb-4">
+                <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+            </div>
+            <div class="form-label-group">
+              <input
+               [ngClass]="(loginForm.get('email')?.invalid
+               && loginForm.get('email')?.touched && loginForm.get('email')?.errors?.['required'])
+               ? loginForm.get('email')?.invalid ? 'is-invalid' : 'is-valid' : null"
+               formControlName="email"
+               id="inputEmail"
+                type="email" class="form-control"
+               placeholder="Email address">
+              <label for="inputemail">Email address</label>
+            <span class="text-danger" *ngIf="loginForm.get('email')?.invalid
+            && loginForm.get('email')?.touched && loginForm.get('email')?.errors?.['required']">
+            Email is required</span>
+            <span class="text-danger" *ngIf="loginForm.get('email')?.invalid
+            && loginForm.get('email')?.touched && loginForm.get('email')?.errors?.['pattern']">
+            Invalid Email address</span>
+          </div>
+          <div class="form-label-group">
+            <input
+            [ngClass]="(loginForm.get('password')?.invalid
+            && loginForm.get('password')?.touched && loginForm.get('password')?.errors?.['required'])
+            ? loginForm.get('password')?.invalid ? 'is-invalid' : 'is-valid' : null"
+             formControlName="password"
+            id="inputPassword" type="password"
+             class="form-control"
+             placeholder="Password">
+            <label for="inputPassword">Password</label>
+          <span class="text-danger" *ngIf="loginForm.get('password')?.invalid
+          && loginForm.get('password')?.touched && loginForm.get('password')?.errors?.['required']">
+          Password is required</span>
+        </div>
+           <button [disabled]="loginForm.invalid" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        </form>
+    </div>
+</div>
