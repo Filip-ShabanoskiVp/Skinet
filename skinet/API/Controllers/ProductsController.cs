@@ -39,11 +39,17 @@ namespace API.Controllers
             [FromQuery] ProductSpecParams productSpecParams){
 
             var spec = new ProductsWithTypesAndBrandsSpecification(productSpecParams);
+            var countSpec = new ProductsWithFiltersForCountSpecification(productSpecParams);
 
+            var totalItems = await productsRepo.CountAsync(countSpec);
             var products = await productsRepo.ListAsync(spec);
 
-            return Ok(mapper.Map<IReadOnlyList<Product>,
-            IReadOnlyList<ProductToReturnDto>>(products));
+            var data = mapper.Map<IReadOnlyList<ProductToReturnDto>>(products);
+
+            // return Ok(mapper.Map<IReadOnlyList<Product>,
+            // IReadOnlyList<ProductToReturnDto>>(products));
+              return Ok(new Pagination<ProductToReturnDto>(productSpecParams.PageIndex,
+              productSpecParams.PageSize, totalItems,data));
         }
 
         [Cached(600)]

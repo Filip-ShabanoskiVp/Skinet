@@ -12,7 +12,7 @@ namespace API.Dtos
         public string Email { get; set; }
 
         [Required]
-        [RegularExpression("(?=^.{6,10}$)(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?/&gt;.&lt;,])(?!.*\\s).*$",
+        [RegularExpression("(?=^.{6,}$)(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?/&gt;.&lt;,])(?!.*\\s).*$",
         ErrorMessage ="Password must had one Uppercase, 1 Lowercase, 1 number, 1 non alphanumeric and at least 6 characters")]
         public string password { get; set; }
     }

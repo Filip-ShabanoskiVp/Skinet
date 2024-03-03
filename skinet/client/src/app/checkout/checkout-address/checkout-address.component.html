@@ -9,106 +9,26 @@
           Save as default address
       </button>
   </div>
-  <div class="row" formGroupName="addressForm">
-    <form>
+  <div class="row">
+    <div class="row" formGroupName="addressForm">
       <div class="form-group col-6">
-        <label for="firstName">FirstName</label>
-        <input [ngClass]="(checkoutForm.get('addressForm')?.get('firstName')?.invalid
-        && checkoutForm.get('addressForm')?.get('firstName')?.touched &&
-        checkoutForm.get('addressForm')?.get('firstName')?.errors?.['required'])
-        ? checkoutForm.get('addressForm')?.get('firstName')?.invalid ? 'is-invalid' : 'is-valid' : null"
-
-        formControlName="firstName" id="firstName" type="text" class="form-control"
-        placeholder="First Name">
-
-        <span class="text-danger"
-                  *ngIf="(checkoutForm.get('addressForm')?.get('firstName')?.invalid
-                  && checkoutForm.get('addressForm')?.get('firstName')?.touched &&
-                  checkoutForm.get('addressForm')?.get('firstName')?.errors?.['required'])">
-                  First Name is required</span>
+        <app-text-input formControlName="firstName" [label]="'FirstName'"></app-text-input>
+      </div>
+    <div class="form-group col-6">
+      <app-text-input formControlName="lastName" [label]="'Last Name'"></app-text-input>
     </div>
     <div class="form-group col-6">
-      <label for="lastName">Last Name</label>
-      <input [ngClass]="(checkoutForm.get('addressForm')?.get('lastName')?.invalid
-      && checkoutForm.get('addressForm')?.get('lastName')?.touched &&
-      checkoutForm.get('addressForm')?.get('lastName')?.errors?.['required'])
-      ? checkoutForm.get('addressForm')?.get('lastName')?.invalid ? 'is-invalid' : 'is-valid' : null"
-
-      formControlName="lastName" id="lastName" type="text" class="form-control"
-      placeholder="Last Name">
-
-      <span class="text-danger"
-      *ngIf="(checkoutForm.get('addressForm')?.get('lastName')?.invalid
-      && checkoutForm.get('addressForm')?.get('lastName')?.touched &&
-      checkoutForm.get('addressForm')?.get('lastName')?.errors?.['required'])">
-      Last Name is required</span>
-
+      <app-text-input formControlName="street" [label]="'Street'"></app-text-input>
     </div>
     <div class="form-group col-6">
-      <label for="street">Street</label>
-      <input [ngClass]="(checkoutForm.get('addressForm')?.get('street')?.invalid
-      && checkoutForm.get('addressForm')?.get('street')?.touched &&
-      checkoutForm.get('addressForm')?.get('street')?.errors?.['required'])
-      ? checkoutForm.get('addressForm')?.get('street')?.invalid ? 'is-invalid' : 'is-valid' : null"
-
-      formControlName="street" id="street" type="text" class="form-control"
-      placeholder="Street">
-
-      <span class="text-danger"
-      *ngIf="(checkoutForm.get('addressForm')?.get('street')?.invalid
-      && checkoutForm.get('addressForm')?.get('street')?.touched &&
-      checkoutForm.get('addressForm')?.get('street')?.errors?.['required'])">
-      Street is required</span>
+      <app-text-input formControlName="city" [label]="'City'"></app-text-input>
     </div>
     <div class="form-group col-6">
-      <label for="city">City</label>
-      <input [ngClass]="(checkoutForm.get('addressForm')?.get('city')?.invalid
-      && checkoutForm.get('addressForm')?.get('city')?.touched &&
-      checkoutForm.get('addressForm')?.get('city')?.errors?.['required'])
-      ? checkoutForm.get('addressForm')?.get('city')?.invalid ? 'is-invalid' : 'is-valid' : null"
-
-      formControlName="city" id="city" type="text" class="form-control"
-      placeholder="City">
-
-      <span class="text-danger"
-      *ngIf="(checkoutForm.get('addressForm')?.get('city')?.invalid
-      && checkoutForm.get('addressForm')?.get('city')?.touched &&
-      checkoutForm.get('addressForm')?.get('city')?.errors?.['required'])">
-     City is required</span>
+      <app-text-input formControlName="state" [label]="'State'"></app-text-input>
     </div>
     <div class="form-group col-6">
-      <label for="city">State</label>
-      <input [ngClass]="(checkoutForm.get('addressForm')?.get('state')?.invalid
-      && checkoutForm.get('addressForm')?.get('state')?.touched &&
-      checkoutForm.get('addressForm')?.get('state')?.errors?.['required'])
-      ? checkoutForm.get('addressForm')?.get('state')?.invalid ? 'is-invalid' : 'is-valid' : null"
-
-      formControlName="state" id="state" type="text" class="form-control"
-      placeholder="state">
-
-      <span class="text-danger"
-      *ngIf="(checkoutForm.get('addressForm')?.get('state')?.invalid
-      && checkoutForm.get('addressForm')?.get('state')?.touched &&
-      checkoutForm.get('addressForm')?.get('state')?.errors?.['required'])">
-     State is required</span>
+      <app-text-input formControlName="zipcode" [label]="'Zipcode'"></app-text-input>
     </div>
-    <div class="form-group col-6">
-      <label for="zipcode">Zipcode</label>
-      <input  [ngClass]="(checkoutForm.get('addressForm')?.get('zipcode')?.invalid
-      && checkoutForm.get('addressForm')?.get('zipcode')?.touched &&
-      checkoutForm.get('addressForm')?.get('zipcode')?.errors?.['required'])
-      ? checkoutForm.get('addressForm')?.get('zipcode')?.invalid ? 'is-invalid' : 'is-valid' : null"
-
-      formControlName="zipcode" id="zipcode" type="text" class="form-control"
-      placeholder="zipcode">
-
-      <span class="text-danger"
-      *ngIf="(checkoutForm.get('addressForm')?.get('zipcode')?.invalid
-      && checkoutForm.get('addressForm')?.get('zipcode')?.touched &&
-      checkoutForm.get('addressForm')?.get('zipcode')?.errors?.['required'])">
-     Zipcode is required</span>
-    </div>
-    </form>
   </div>
 </div>
 <div class="float-none d-flex justify-content-between flex-column flex-lg-row mb-5">

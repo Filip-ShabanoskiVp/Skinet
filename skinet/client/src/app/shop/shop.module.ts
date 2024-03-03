@@ -4,6 +4,7 @@ import { ShoppComponent } from './shopp.component';
 import { ProductItemComponent } from './product-item/product-item.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { ShoppRoutingModule } from './shopp-routing.module';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -15,6 +16,7 @@ import { ShoppRoutingModule } from './shopp-routing.module';
   ],
   imports: [
     CommonModule,
+    SharedModule,
     ShoppRoutingModule
   ]
 })

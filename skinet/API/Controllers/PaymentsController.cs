@@ -12,13 +12,15 @@ namespace API.Controllers
     public class PaymentsController : BaseApiController
     {
         private readonly IPaymentService paymentService;
-        private const string WebHookSecret = "whsec_d286b12292a4922c983aacd42a6948112f1ad81171ded13990e20a2de34a0672";
+        private readonly string WebHookSecret;
         private readonly ILogger<IPaymentService> logger;
 
-        public PaymentsController(IPaymentService paymentService, ILogger<IPaymentService> logger)
+        public PaymentsController(IPaymentService paymentService, ILogger<IPaymentService> logger,
+        IConfiguration config)
         {
             this.logger = logger;
             this.paymentService = paymentService;
+            WebHookSecret = config.GetSection("StripeSettings:WebHookSecret").Value;
         }
 
         [Authorize]
@@ -61,4 +63,4 @@ namespace API.Controllers
             return new EmptyResult();
         }
     }
-}
+} 

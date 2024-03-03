@@ -5,6 +5,7 @@ import { IType } from '../shared/models/productType';
 import { map, of } from 'rxjs';
 import { ShopParams } from '../shared/models/shopParams';
 import { IProduct } from '../shared/models/product';
+import { IPagination, Pagination } from '../shared/models/pagination';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,7 @@ export class ShoppService {
   brands: IBrand[] = [];
   types: IType[] = [];
   shopParams = new ShopParams();
+  pagination =  new Pagination();
 
 
   constructor(private http: HttpClient) { }
@@ -27,7 +29,15 @@ export class ShoppService {
     }
 
     if(this.products.length > 0 && useCached === true){
-      return of(this.products);
+      const pageReceived = Math.ceil(this.products.length / this.shopParams.pageSize);
+
+      if(this.shopParams.pageNumber <= pageReceived) {
+        this.pagination.data = this.products.slice((this.shopParams.pageNumber - 1) *
+         this.shopParams.pageSize,
+          this.shopParams.pageNumber * this.shopParams.pageSize);
+
+          return of(this.pagination);
+      }
     }
 
     let params = new HttpParams();
@@ -45,12 +55,17 @@ export class ShoppService {
     }
 
     params = params.append("sort", this.shopParams.sort)
+    params = params.append("pageIndex", this.shopParams.pageNumber.toString());
+    params = params.append("pageSize", this.shopParams.pageSize.toString());
 
-    return this.http.get<any>(this.baseUrl + "products", {observe: "response", params})
+    return this.http.get<IPagination>(this.baseUrl + "products", {observe: "response", params})
     .pipe(
       map(response => {
-        this.products = [...this.products, ...response.body];
-        return response.body;
+        if(response.body?.data){
+          this.products = [...this.products, ...response.body?.data];
+          this.pagination = response.body;
+        }
+        return this.pagination;
       })
     )
   }

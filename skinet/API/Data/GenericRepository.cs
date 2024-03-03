@@ -58,5 +58,9 @@ namespace API.Data
             context.Set<T>().Remove(entity);
         }
 
+        public Task<int> CountAsync(ISpecification<T> spec)
+        {
+            return ApplySpecification(spec).CountAsync();
+        }
     }
 }

@@ -15,6 +15,8 @@ namespace API.specifications
             AddInclude(x => x.ProductType);
             AddInclude(x => x.ProductBrand);
             AddOrderBy(x => x.Name);
+            ApplyPaging(productSpecParams.PageSize * 
+            (productSpecParams.PageIndex-1) ,productSpecParams.PageSize);
 
             if(!string.IsNullOrEmpty(productSpecParams.Sort))
             {

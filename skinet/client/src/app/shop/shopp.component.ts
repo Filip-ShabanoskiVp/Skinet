@@ -14,6 +14,7 @@ export class ShoppComponent implements OnInit{
   products: any;
   brands:  IBrand[];
   types: IType[];
+  totalCount: number = 0;
   shopParams: ShopParams;
   sortOptions = [
     {name: "Alphabetical", value: "name"},
@@ -37,7 +38,8 @@ export class ShoppComponent implements OnInit{
     getProducts(useCached = false){
       this.shoppService.getProducts(useCached)
       .subscribe(response =>{
-        this.products = response
+        this.products = response.data;
+        this.totalCount = response?.count;
       },error =>{
         console.log(error);
       })
@@ -62,6 +64,7 @@ export class ShoppComponent implements OnInit{
     onBrandSelected(brandId: number){
       const params = this.shoppService.getShopParams();
       params.brandId = brandId;
+      params.pageNumber = 1;
       this.shoppService.setShopParams(params);
       this.getProducts();
     }
@@ -69,6 +72,7 @@ export class ShoppComponent implements OnInit{
     onTypeSelected(typeId: number){
       const params = this.shoppService.getShopParams();
       params.typeId = typeId;
+      params.pageNumber = 1;
       this.shoppService.setShopParams(params);
       this.getProducts();
     }
@@ -78,6 +82,17 @@ export class ShoppComponent implements OnInit{
       params.sort = sort;
       this.shoppService.setShopParams(params);
       this.getProducts();
+    }
+
+    onPageChange(event: any){
+      const params = this.shoppService.getShopParams();
+      console.log(event)
+      if(params.pageNumber !== event) {
+        params.pageNumber = event;
+        console.log(params.pageNumber)
+        this.shoppService.setShopParams(params);
+        this.getProducts(true);
+      }
     }
 
     onSearch(){

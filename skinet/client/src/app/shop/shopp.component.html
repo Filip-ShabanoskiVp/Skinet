@@ -1,4 +1,5 @@
-<div class="container mt-5">
+  <div class="container mt-5">
+
     <div class="row">
         <section class="col-3">
             <ng-container *ngIf="types && brands">
@@ -26,9 +27,13 @@
         </section>
         <section class="sol-9" style="width:950px">
             <div class="d-flex justify-content-between align-item-center pb-2">
-                <header>
-                    <span>Showing <strong>10</strong> of <strong>16</strong> Results</span>
-                </header>
+
+              <app-paging-header
+              [totalCount]="this.totalCount"
+              [pageSize]="this.shopParams.pageSize"
+              [pageNumber]="this.shopParams.pageNumber"
+              ></app-paging-header>
+
                 <div class="form-inline mt-2" *ngIf="products">
                     <input (keyup.enter)="onSearch()" type="text" class="form-control" #search style="width:300px"
                         placeholder="Search" />
@@ -40,6 +45,17 @@
                 <div class="col" *ngFor="let item of products">
                     <app-product-item [product]="item"></app-product-item>
                 </div>
+            </div>
+            <div>
+            </div>
+            <div class="d-flex justify-content-center mt-4"
+             *ngIf="this.totalCount > 0">
+              <app-pager
+              [pageSize]="this.shopParams.pageSize"
+              [totalCount]="totalCount"
+              [pageNumber]="this.shopParams.pageNumber"
+              (pageChange)="onPageChange($event)"
+              ></app-pager>
             </div>
         </section>
     </div>

@@ -1,19 +1,7 @@
 <div class="mt-4" *ngIf="checkoutForm" [formGroup]="checkoutForm">
   <div class="row">
     <div class="form-group col-12" formGroupName="paymentForm">
-      <label for="nameOnCard">Name on card</label>
-        <input [ngClass]="(checkoutForm.get('paymentForm')?.get('nameOnCard')?.invalid
-        && checkoutForm.get('paymentForm')?.get('nameOnCard')?.touched &&
-        checkoutForm.get('paymentForm')?.get('nameOnCard')?.errors?.['required'])
-        ? checkoutForm.get('paymentForm')?.get('nameOnCard')?.invalid ? 'is-invalid' : 'is-valid' : null"
-
-        formControlName="nameOnCard" id="nameOnCard" type="text" class="form-control"
-        placeholder="Name on card" required="true">
-        <span class="text-danger"
-                  *ngIf="checkoutForm.get('paymentForm')?.get('nameOnCard')?.invalid
-        && checkoutForm.get('paymentForm')?.get('nameOnCard')?.touched
-        && checkoutForm.get('paymentForm')?.get('nameOnCard')?.errors?.['required']">
-                  Name on Card is required</span>
+      <app-text-input formControlName="nameOnCard" [label]="'Name on card'"></app-text-input>
     </div>
     <div class="form-group col-6 py-3">
       <div class="form-floating">
