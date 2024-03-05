@@ -1,0 +1,53 @@
+<div class="d-flex justify-content-center mt-5">
+  <div class="col-3">
+    <form [formGroup]="productsForm" (ngSubmit)="SaveProduct()">
+      <div class="text-center mb-4">
+        <h1 class="h3 mb-3 font-weight-normal">New Product</h1>
+      </div>
+      <div class="raw">
+        <app-text-input formControlName="name" [label]="'Name'"></app-text-input>
+        <app-text-input formControlName="description" [label]="'Description'"></app-text-input>
+        <app-text-input formControlName="price" [label]="'Price'" [type]="'number'"></app-text-input>
+        <app-text-input formControlName="pictureUrl"
+         [label]="'PictureUrl'"></app-text-input>
+
+        <div class="form-label-group">
+          <label for="productTypeId">ProductTypeId</label>
+          <select formControlName="productTypeId"
+          [ngClass]="(productsForm.get('productTypeId')?.invalid
+          && productsForm.get('productTypeId')?.touched &&
+          productsForm.get('productTypeId')?.errors?.['required'])
+          ? productsForm.get('productTypeId')?.invalid ? 'is-invalid' : 'is-valid' : null"
+          class="form-control" id="productTypeId">
+            <option *ngFor="let type of this.types"[value]="this.type.id">
+              {{this.type.name}}
+            </option>
+          </select>
+          <span class="text-danger"
+              *ngIf="productsForm.get('productTypeId')?.invalid
+    && productsForm.get('productTypeId')?.touched && productsForm.get('productTypeId')?.errors?.['required']">
+              ProductTypeId is required</span>
+          </div>
+        <div class="form-label-group">
+        <label for="productBrandId">ProductBrandId</label>
+        <select formControlName="productBrandId"  [ngClass]="(productsForm.get('productBrandId')?.invalid
+        && productsForm.get('productBrandId')?.touched &&
+        productsForm.get('productBrandId')?.errors?.['required'])
+        ? productsForm.get('productBrandId')?.invalid ? 'is-invalid' : 'is-valid' : null"
+        class="form-control" id="productBrandId"
+        >
+          <option *ngFor="let brand of this.brands" [value]="this.brand.id">
+            {{this.brand.name}}
+          </option>
+        </select>
+        <span class="text-danger"
+            *ngIf="productsForm.get('productBrandId')?.invalid
+  && productsForm.get('productBrandId')?.touched && productsForm.get('productBrandId')?.errors?.['required']">
+            ProductBrandId is required</span>
+        </div>
+        <button class="btn btn-primary" [disabled]="!productsForm.valid ||
+          !productsForm.dirty">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>

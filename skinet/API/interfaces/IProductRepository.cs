@@ -10,5 +10,6 @@ namespace API.interfaces
         Task<IReadOnlyList<ProductBrand>> GetProductBrandsAsync();
 
         Task<IReadOnlyList<ProductType>> GetProductTypesAsync();
+
     }
 }

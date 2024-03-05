@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { OrdersComponent } from './orders.component';
 import { OrderDetailedComponent } from './order-detailed/order-detailed.component';
@@ -11,7 +10,7 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  declarations: [], 
+  declarations: [],
   imports: [
     RouterModule.forChild(routes)
   ],

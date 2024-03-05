@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IProduct } from '../../shared/models/product';
 import { ShoppService } from '../shopp.service';
 import { error } from 'console';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BreadcrumbService } from 'xng-breadcrumb';
 import { BasketService } from '../../basket/basket.service';
 
@@ -16,7 +16,8 @@ export class ProductDetailsComponent implements OnInit{
   quantity = 1;
 
   constructor(private shopService: ShoppService, private activetedRoute: ActivatedRoute,
-    private bcService: BreadcrumbService, private basketService: BasketService){
+    private bcService: BreadcrumbService, private basketService: BasketService,
+    private router: Router){
       this.bcService.set('@ProductDetails','');
   }
 
@@ -47,4 +48,12 @@ export class ProductDetailsComponent implements OnInit{
     });
   }
 
+  deleteProduct(product: IProduct){
+    return this.shopService.deleteProduct(product).subscribe(()=>{
+      this.router.navigate(["shop"]);
+    },error=>{
+      console.log(error);
+    })
+  }
 }
+

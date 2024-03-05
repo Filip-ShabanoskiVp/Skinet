@@ -7,5 +7,7 @@ namespace API.interfaces
         Task CacheReponseAsync(string cacheKey, object response, TimeSpan timeToLive);
 
         Task<string> GetCachedReponseAsync(string cacheKey);
+
+        Task RemoveCacheAsync(string cacheKey); 
     }
 }

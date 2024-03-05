@@ -4,7 +4,7 @@ import { IBrand } from '../shared/models/brand';
 import { IType } from '../shared/models/productType';
 import { map, of } from 'rxjs';
 import { ShopParams } from '../shared/models/shopParams';
-import { IProduct } from '../shared/models/product';
+import { IProduct, IProductToCreate } from '../shared/models/product';
 import { IPagination, Pagination } from '../shared/models/pagination';
 
 @Injectable({
@@ -112,5 +112,13 @@ export class ShoppService {
       })
     )
 
+  }
+
+  newProduct(product: IProductToCreate){
+    return this.http.post<IProductToCreate>(this.baseUrl + "products",product)
+  }
+
+  deleteProduct(product: IProduct){
+    return this.http.delete(this.baseUrl + "products/"+product.id);
   }
 }

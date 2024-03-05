@@ -1,8 +1,5 @@
 using Api.Entities;
-using Api.Data;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using API.Data;
 using API.interfaces;
 using API.Entities;
 using API.specifications;
@@ -19,21 +16,23 @@ namespace API.Controllers
         private readonly IGenericRepository<ProductBrand> productBrandRepo;
         private readonly IGenericRepository<ProductType> productTypeRepo;
         private readonly IMapper mapper;
-
+        private readonly IUnitOfWork unitOfWork;
+        private readonly IResponseCacheService responseCache;
 
         public ProductsController(IGenericRepository<Product> productsRepo,
         IGenericRepository<ProductBrand> productBrandRepo,
          IGenericRepository<ProductType> productTypeRepo,
-         IMapper mapper)
+         IMapper mapper, IUnitOfWork unitOfWork, IResponseCacheService responseCache)
         {
             this.productsRepo = productsRepo;
             this.productBrandRepo = productBrandRepo;
             this.productTypeRepo = productTypeRepo;
             this.mapper = mapper;
-
+            this.unitOfWork = unitOfWork;
+            this.responseCache = responseCache;
         }
 
-        [Cached(600)]
+        // [Cached(600)]
         [HttpGet]
         public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> GetProducts(
             [FromQuery] ProductSpecParams productSpecParams){
@@ -46,13 +45,11 @@ namespace API.Controllers
 
             var data = mapper.Map<IReadOnlyList<ProductToReturnDto>>(products);
 
-            // return Ok(mapper.Map<IReadOnlyList<Product>,
-            // IReadOnlyList<ProductToReturnDto>>(products));
               return Ok(new Pagination<ProductToReturnDto>(productSpecParams.PageIndex,
               productSpecParams.PageSize, totalItems,data));
         }
 
-        [Cached(600)]
+        // [Cached(600)]
         [HttpGet("{id}")]  
         [ProducesResponseType(StatusCodes.Status200OK)] 
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
@@ -69,7 +66,7 @@ namespace API.Controllers
             return mapper.Map<Product, ProductToReturnDto>(product);
         }
 
-        [Cached(600)]
+        // [Cached(600)]
         [HttpGet("brands")]
         public async Task<ActionResult<IReadOnlyList<ProductBrand>>> GetProductsBrands(){
 
@@ -78,13 +75,39 @@ namespace API.Controllers
             return Ok(productsBrands);
         }
 
-        [Cached(600)]
+        // [Cached(600)]
         [HttpGet("types")]
         public async Task<ActionResult<IReadOnlyList<ProductType>>> GetProductsTypes(){
 
             var productsTypes = await productTypeRepo.ListAllAsync();
 
             return Ok(productsTypes);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Product>> CreateProdict([FromBody] Product product)
+        {
+            unitOfWork.Repository<Product>().Add(product);
+
+            await unitOfWork.Complete();
+            return product;
+        }
+
+        [HttpDelete("{id}")]
+        public async Task DeleteProduct(int id)
+        {
+            Product product = await productsRepo.GetByIdAsync(id);
+
+            if(product == null)
+            {
+                 NotFound(new ApiResponse(404,"Prodcut is not found!"));
+            }else {
+                 unitOfWork.Repository<Product>().Delete(product);
+                 await unitOfWork.Complete();
+
+                 await responseCache.RemoveCacheAsync("ProductsCacheKey");
+
+            }
         }
     }
 }

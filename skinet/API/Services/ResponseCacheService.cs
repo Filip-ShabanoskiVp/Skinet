@@ -1,3 +1,4 @@
+using System.Data;
 using System.Text.Json;
 using API.interfaces;
 using StackExchange.Redis;
@@ -40,6 +41,11 @@ namespace API.Services
             }
 
             return cacheResponse;
+        }
+
+        public async Task RemoveCacheAsync(string cacheKey)
+        {
+            await database.KeyDeleteAsync(cacheKey);
         }
     }
 }

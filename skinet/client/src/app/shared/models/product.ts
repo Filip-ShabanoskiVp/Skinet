@@ -9,3 +9,14 @@ export interface IProduct {
 
 }
 
+
+export interface IProductToCreate {
+  name: string
+  description: string
+  price: number
+  pictureUrl: string
+  productTypeId: number
+  productBrandId: number
+
+}
+

@@ -12,6 +12,7 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { PagerComponent } from './components/pager/pager.component';
 import { PagingHeaderComponent } from './components/paging-header/paging-header.component';
+import { SelectInputComponent } from './components/select-input/select-input.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { PagingHeaderComponent } from './components/paging-header/paging-header.
     StepperComponent,
     BasketSummaryComponent,
     PagerComponent,
-    PagingHeaderComponent
+    PagingHeaderComponent,
+    SelectInputComponent,
   ],
   imports: [
     CommonModule,
@@ -45,7 +47,8 @@ import { PagingHeaderComponent } from './components/paging-header/paging-header.
     StepperComponent,
     BasketSummaryComponent,
     PagerComponent,
-    PagingHeaderComponent
+    PagingHeaderComponent,
+    SelectInputComponent,
   ]
 })
 export class SharedModule { }

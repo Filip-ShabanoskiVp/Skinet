@@ -33,6 +33,8 @@
               [pageSize]="this.shopParams.pageSize"
               [pageNumber]="this.shopParams.pageNumber"
               ></app-paging-header>
+              <a class="btn btn-primary" style="width: 150px;height:40px"
+              routerLink="/shop/New-Product">New Product</a>
 
                 <div class="form-inline mt-2" *ngIf="products">
                     <input (keyup.enter)="onSearch()" type="text" class="form-control" #search style="width:300px"
@@ -51,7 +53,7 @@
             <div class="d-flex justify-content-center mt-4"
              *ngIf="this.totalCount > 0">
               <app-pager
-              [pageSize]="this.shopParams.pageSize"
+              [pageSize]="this.shopParams.pageSize" 
               [totalCount]="totalCount"
               [pageNumber]="this.shopParams.pageNumber"
               (pageChange)="onPageChange($event)"

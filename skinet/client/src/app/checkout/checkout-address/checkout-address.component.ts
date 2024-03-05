@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { AccountService } from '../../account/account.service';
 import { ToastrService } from 'ngx-toastr';
-import { error } from 'console';
 import { IAddress } from '../../shared/models/address';
 @Component({
   selector: 'app-checkout-address',
